@@ -40,7 +40,7 @@ npm cache clean --force
 
 # Step 4: Install dependencies
 echo "Installing production dependencies..."
-if npm install --production; then
+if npm install; then
     echo "Dependencies installed successfully."
 else
     echo "Dependency installation failed." >&2
