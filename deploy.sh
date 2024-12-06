@@ -2,7 +2,6 @@
 
 # Configuration
 REPO_PATH="/home/jsclimbe/repositories/bfptec"
-TEMP_BUILD_PATH="/home/jsclimbe/repositories/bfptec-temp"
 APP_NAME="bfptec.jsclimber.ir"
 LOG_FILE="/home/jsclimbe/deploy_bfptec.log"
 HTACCESS="/home/jsclimbe/bfptec.jsclimber.ir/.htaccess"
@@ -13,17 +12,9 @@ exec 2>&1
 
 echo "===== Starting deployment at $(date) ====="
 
-# Step 1: copy repository
-
-echo "Copying repository to temporary path..."
-if cp -R "$REPO_PATH" "$TEMP_BUILD_PATH"; then
-    echo "Repository copied successfully ."
-else
-    echo "Failed to copy repository." >&2
-    exit 1
-fi
-
-cd "$TEMP_BUILD_PATH" || { echo "Failed to navigate to $TEMP_BUILD_PATH"; exit 1; }
+# Step 1: Navigate to the repository
+echo "Navigating to the repository..."
+cd "$REPO_PATH" || { echo "Failed to navigate to $REPO_PATH"; exit 1; }
 
 # Step 2: Git pull
 echo "Pulling latest changes from GitHub..."
@@ -43,13 +34,9 @@ else
 fi
 
 # Step 3: Cache and dependencies cleanup
-echo "Clearing .next cache and node_modules..."
-if rm -rf .next node_modules; then
-    echo "Caches cleared successfully."
-else
-    echo "Failed to clear caches." >&2
-    exit 1
-fi
+echo "Clearing .next cache, node_modules, and npm cache..."
+rm -rf .next node_modules
+npm cache clean --force
 
 # Step 4: Install dependencies
 echo "Installing production dependencies..."
@@ -78,42 +65,22 @@ else
     exit 1
 fi
 
-# Step 7: Ensure the public directory exists in REPO_PATH
+# Step 7: Ensure the public directory exists
 echo "Checking public directory..."
 if [ ! -d "$REPO_PATH/public" ]; then
     mkdir -p "$REPO_PATH/public"
-    echo "Public directory created in live path."
+    echo "Public directory created."
 else
-    echo "Public directory exists in live path."
+    echo "Public directory exists."
 fi
 
-# Step 8: Deploy to live directory
-echo "Deploying files to live directory..."
-# Sync all files from the temporary build path to the live repository path
-if rsync -a --delete "$TEMP_BUILD_PATH/" "$REPO_PATH/"; then
-    echo "Deployment files synced successfully."
-else
-    echo "File sync failed." >&2
-    exit 1
-fi
-
-# Step 9: Cleanup temporary build directory
-echo "Cleaning up temporary build directory..."
-if rm -rf "$TEMP_BUILD_PATH"; then
-    echo "Temporary build directory removed."
-else
-    echo "Failed to remove temporary build directory." >&2
-fi
-
-echo "===== Deployment completed successfully at $(date) ====="
-
-
-# Step 10: Restart the application
+# Step 8: Restart the application
 echo "Restarting application with PM2..."
-cd "$REPO_PATH" || { echo "Failed to navigate to live directory $REPO_PATH"; exit 1; }
 if pm2 restart "$APP_NAME" --update-env; then
     echo "Application restarted successfully."
 else
     echo "Application restart failed." >&2
     exit 1
 fi
+
+echo "===== Deployment completed successfully at $(date) ====="
