@@ -1,0 +1,55 @@
+{
+  "title": "بنیان فراورش پارسه",
+  "aryanPhone": "+989173168436",
+  "salehiPhone": "+989120698362",
+  "companyMail": "Info@bfptec.ir",
+  "aryanMail": "Arian.mb62@gmail.com",
+  "baleAccount": "bfptecsupport",
+  "eitaAccount": "bfptecsupport",
+  "address": " بندرعباس، بولوار شهید ناصر، کوچه شهید ناصر، ساختمان شهید ناصر، طبقه 3، واحد 4",
+  "about": "ما یک شرکت دانش بنیان هستیم که در زمینه تصفیه آب و سیالات مختلف فعالیت داریم.",
+  "navLinks": [
+    {
+      "title": "خانه",
+      "url": "/"
+    },
+    {
+      "title": "خدمات",
+      "url": "/services"
+    },
+    {
+      "title": "اخبار",
+      "url": "/news",
+      "children": [
+        {
+          "title": "دستاوردها",
+          "url": "/news/دستاوردها"
+        },
+        {
+          "title": "مقالات",
+          "url": "/news/مقالات"
+        },
+        {
+          "title": "رویدادها",
+          "url": "/news/رویدادها"
+        },
+        {
+          "title": "چشم انداز",
+          "url": "/news/چشم انداز"
+        }
+      ]
+    },
+    {
+      "title": "ارزش ها",
+      "url": "/advantages"
+    },
+    {
+      "title": "درباره ما",
+      "url": "/about"
+    },
+    {
+      "title": "تماس با ما",
+      "url": "/contact-us"
+    }
+  ]
+}
