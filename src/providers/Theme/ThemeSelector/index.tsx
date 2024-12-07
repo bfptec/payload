@@ -1,24 +1,15 @@
 'use client'
-
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
 import React, { useState } from 'react'
-
 import type { Theme } from './types'
-
 import { useTheme } from '..'
 import { themeLocalStorageKey } from './types'
+import { Moon, Sun, UserRoundCog } from 'lucide-react'
 
 export const ThemeSelector: React.FC = () => {
   const { setTheme } = useTheme()
   const [value, setValue] = useState('')
 
-  const onThemeChange = (themeToSet: Theme & 'auto') => {
+  const onThemeChange = (themeToSet: Theme | 'auto') => {
     if (themeToSet === 'auto') {
       setTheme(null)
       setValue('auto')
@@ -34,18 +25,19 @@ export const ThemeSelector: React.FC = () => {
   }, [])
 
   return (
-    <Select onValueChange={onThemeChange} value={value}>
-      <SelectTrigger
-        aria-label="Select a theme"
-        className="w-auto bg-transparent gap-2 pl-0 md:pl-3 border-none"
-      >
-        <SelectValue placeholder="Theme" />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectItem value="auto">Auto</SelectItem>
-        <SelectItem value="light">Light</SelectItem>
-        <SelectItem value="dark">Dark</SelectItem>
-      </SelectContent>
-    </Select>
+    <div className="flex rounded-full border border-border text-gray-400 transition-all duration-100">
+      <UserRoundCog
+        onClick={() => onThemeChange('auto')}
+        className={`size-10 cursor-pointer rounded-full border-border p-2 hover:text-white ${value === 'auto' && 'border text-white'}`}
+      />
+      <Sun
+        onClick={() => onThemeChange('light')}
+        className={`size-10 cursor-pointer rounded-full border-border p-2 hover:text-yellow-300 ${value === 'light' && 'border text-yellow-300'}`}
+      />
+      <Moon
+        onClick={() => onThemeChange('dark')}
+        className={`size-10 cursor-pointer rounded-full border-border p-2 hover:text-blue-400 ${value === 'dark' && 'border text-blue-400'}`}
+      />
+    </div>
   )
 }

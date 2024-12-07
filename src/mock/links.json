@@ -1,0 +1,46 @@
+{
+  "links": [
+    {
+      "label": "صفحه اصلی",
+      "link": "/"
+    },
+    {
+      "label": "خدمات",
+      "link": "/services"
+    },
+    {
+      "label": "اخبار",
+      "link": "/news",
+      "links": [
+        {
+          "label": "دستاوردها",
+          "link": "/news/دستاوردها"
+        },
+        {
+          "label": "مقالات",
+          "link": "/news/مقالات"
+        },
+        {
+          "label": "رویدادها",
+          "link": "/news/رویدادها"
+        },
+        {
+          "label": "چشم انداز",
+          "link": "/news/چشم انداز"
+        }
+      ]
+    },
+    {
+      "label": "ارزش ها",
+      "link": "/advantages"
+    },
+    {
+      "label": "درباره ما",
+      "link": "/about"
+    },
+    {
+      "label": "تماس با ما",
+      "link": "/contact-us"
+    }
+  ]
+}

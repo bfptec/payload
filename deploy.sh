@@ -56,18 +56,9 @@ else
     exit 1
 fi
 
-# Step 6: Clear .htaccess file content while keeping the first 5 lines
-# echo "Clearing .htaccess file content while keeping the first 5 lines..."
-# if head -n 5 "$HTACCESS" > "${HTACCESS}.tmp" && mv "${HTACCESS}.tmp" "$HTACCESS"; then
-#     echo ".htaccess file cleared successfully, keeping the first 5 lines."
-# else
-#     echo "Failed to clear .htaccess file while keeping the first 5 lines." >&2
-#     exit 1
-# fi
-
 # Step 6: Delete .htaccess file 
 echo "Deleting .htaccess file"
-rm -rf HTACCESS
+rm -rf "$HTACCESS"
 
 # Step 7: Ensure the public directory exists
 echo "Checking public directory..."
