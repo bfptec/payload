@@ -3,11 +3,11 @@ import { useHeaderTheme } from '@/providers/HeaderTheme'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
-
 import type { Header } from '@/payload-types'
-
 import { Logo } from '@/components/Logo/Logo'
 import { HeaderNav } from './Nav'
+import HamburgerMenu from './HamburgerMenu/index.tsx'
+import useBetterMediaQuery from '@/utilities/useBetterMediaQuery'
 
 interface HeaderClientProps {
   header: Header
@@ -29,13 +29,34 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ header }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [headerTheme])
 
+  // scroll effect
+  const [isWide, setIsWide] = useState(true)
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 10) {
+        setIsWide(false)
+      } else {
+        setIsWide(true)
+      }
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
+
+  const isDesktop = useBetterMediaQuery('(min-width: 1024px)')
+
   return (
-    <header className="container relative z-20   " {...(theme ? { 'data-theme': theme } : {})}>
-      <div className="py-8 flex justify-between">
+    <header
+      className={`fixed inset-x-0 top-0 z-20 w-full backdrop-blur-sm transition-all duration-300 max-lg:p-2 lg:px-2 lg:${isWide ? 'h-[100px]' : 'h-[60px]'}`}
+      {...(theme ? { 'data-theme': theme } : {})}
+    >
+      <div className="container relative flex justify-between">
         <Link href="/">
-          <Logo loading="eager" priority="high" className="invert dark:invert-0" />
+          <Logo isWide={isWide} />
         </Link>
-        <HeaderNav header={header} />
+        {isDesktop ? <HeaderNav header={header} /> : <HamburgerMenu header={header} />}
       </div>
     </header>
   )
