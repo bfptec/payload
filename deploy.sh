@@ -1,10 +1,11 @@
 #!/bin/bash
 
 # Configuration
-REPO_PATH="/home/jsclimbe/repositories/bfptec"
-APP_NAME="bfptec.jsclimber.ir"
-LOG_FILE="/home/jsclimbe/deploy_bfptec.log"
+TEMP_BUILD_PATH="/home/jsclimbe/repositories/bfptec-temp"
 HTACCESS="/home/jsclimbe/bfptec.jsclimber.ir/.htaccess"
+REPO_PATH="/home/jsclimbe/repositories/bfptec"
+LOG_FILE="/home/jsclimbe/deploy_bfptec.log"
+APP_NAME="bfptec.jsclimber.ir"
 
 # Start logging
 exec > >(tee -a "$LOG_FILE")
@@ -12,9 +13,17 @@ exec 2>&1
 
 echo "===== Starting deployment at $(date) ====="
 
-# Step 1: Navigate to the repository
-echo "Navigating to the repository..."
-cd "$REPO_PATH" || { echo "Failed to navigate to $REPO_PATH"; exit 1; }
+# Step 1: copy repository
+
+echo "Copying repository to temporary path..."
+if cp -R "$REPO_PATH" "$TEMP_BUILD_PATH"; then
+    echo "Repository copied successfully ."
+else
+    echo "Failed to copy repository." >&2
+    exit 1
+fi
+
+cd "$TEMP_BUILD_PATH" || { echo "Failed to navigate to $TEMP_BUILD_PATH"; exit 1; }
 
 # Step 2: Git pull
 echo "Pulling latest changes from GitHub..."
@@ -39,7 +48,7 @@ rm -rf .next node_modules
 npm cache clean --force
 
 # Step 4: Install dependencies
-echo "Installing production dependencies..."
+echo "Installing dependencies..."
 if npm install; then
     echo "Dependencies installed successfully."
 else
@@ -56,26 +65,51 @@ else
     exit 1
 fi
 
-# Step 6: Delete .htaccess file 
-echo "Deleting .htaccess file"
-rm -rf "$HTACCESS"
+# Step 6: Clear .htaccess file content while keeping the first 5 lines
+echo "Clearing .htaccess file content while keeping the first 5 lines..."
+if head -n 5 "$HTACCESS" > "${HTACCESS}.tmp" && mv "${HTACCESS}.tmp" "$HTACCESS"; then
+    echo ".htaccess file cleared successfully, keeping the first 5 lines."
+else
+    echo "Failed to clear .htaccess file while keeping the first 5 lines." >&2
+    exit 1
+fi
 
-# Step 7: Ensure the public directory exists
+# Step 7: Ensure the public directory exists in REPO_PATH
 echo "Checking public directory..."
 if [ ! -d "$REPO_PATH/public" ]; then
     mkdir -p "$REPO_PATH/public"
-    echo "Public directory created."
+    echo "Public directory created in live path."
 else
-    echo "Public directory exists."
+    echo "Public directory exists in live path."
 fi
 
-# Step 8: Restart the application
+# Step 8: Deploy to live directory
+echo "Deploying files to live directory..."
+# Sync all files from the temporary build path to the live repository path
+if rsync -a --delete "$TEMP_BUILD_PATH/" "$REPO_PATH/"; then
+    echo "Deployment files synced successfully."
+else
+    echo "File sync failed." >&2
+    exit 1
+fi
+
+# Step 9: Cleanup temporary build directory
+echo "Cleaning up temporary build directory..."
+if rm -rf "$TEMP_BUILD_PATH"; then
+    echo "Temporary build directory removed."
+else
+    echo "Failed to remove temporary build directory." >&2
+fi
+
+echo "===== Deployment completed successfully at $(date) ====="
+
+
+# Step 10: Restart the application
 echo "Restarting application with PM2..."
+cd "$REPO_PATH" || { echo "Failed to navigate to live directory $REPO_PATH"; exit 1; }
 if pm2 restart "$APP_NAME" --update-env; then
     echo "Application restarted successfully."
 else
     echo "Application restart failed." >&2
     exit 1
 fi
-
-echo "===== Deployment completed successfully at $(date) ====="
