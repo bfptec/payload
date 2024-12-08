@@ -104,12 +104,12 @@ fi
 echo "===== Deployment completed successfully at $(date) ====="
 
 
-# Step 10: Restart the application
-echo "Restarting application with PM2..."
+# Step 10: reload the application
+echo "reloading application with PM2..."
 cd "$REPO_PATH" || { echo "Failed to navigate to live directory $REPO_PATH"; exit 1; }
-if pm2 restart "$APP_NAME" --update-env; then
-    echo "Application restarted successfully."
+if pm2 reload "$APP_NAME" --update-env; then
+    echo "Application reloaded successfully."
 else
-    echo "Application restart failed." >&2
+    echo "Application reload failed." >&2
     exit 1
 fi
