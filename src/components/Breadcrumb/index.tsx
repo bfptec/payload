@@ -10,13 +10,14 @@ import {
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import React from 'react'
+import { ChevronLeft } from 'lucide-react'
 
 const Breadcrumb = () => {
   const paths = usePathname()
   const pathNames = paths.split('/').filter((path) => path)
 
   return (
-    <SBreadcrumb className="!container mt-32">
+    <SBreadcrumb className="!container mt-32 z-80">
       <BreadcrumbList>
         {/* Home Link */}
         <BreadcrumbItem>
@@ -26,7 +27,11 @@ const Breadcrumb = () => {
         </BreadcrumbItem>
 
         {/* Separator after Home */}
-        {pathNames.length > 0 && <BreadcrumbSeparator />}
+        {pathNames.length > 0 && (
+          <BreadcrumbSeparator>
+            <ChevronLeft />
+          </BreadcrumbSeparator>
+        )}
 
         {/* Dynamically Generated Links */}
         {pathNames.map((link, index) => {
@@ -38,10 +43,10 @@ const Breadcrumb = () => {
               <BreadcrumbItem>
                 {/* Last item is just text, not a link */}
                 {isLast ? (
-                  <BreadcrumbPage>{link}</BreadcrumbPage>
+                  <BreadcrumbPage>{decodeURIComponent(link)}</BreadcrumbPage>
                 ) : (
                   <BreadcrumbLink asChild>
-                    <Link href={href}>{link.charAt(0).toUpperCase() + link.slice(1)}</Link>
+                    <Link href={href}>{decodeURIComponent(link)}</Link>
                   </BreadcrumbLink>
                 )}
               </BreadcrumbItem>
