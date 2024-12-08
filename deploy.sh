@@ -6,123 +6,115 @@ HTACCESS="/home/jsclimbe/bfptec.jsclimber.ir/.htaccess"
 REPO_PATH="/home/jsclimbe/repositories/bfptec"
 LOG_FILE="/home/jsclimbe/deploy_bfptec.log"
 APP_NAME="bfptec.jsclimber.ir"
+MAX_RETRIES=3
 
 # Start logging
 exec > >(tee -a "$LOG_FILE")
 exec 2>&1
 
-echo "===== Starting deployment at $(date) ====="
+log() {
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*"
+}
 
-# Step 1: copy repository
+log "===== Starting deployment ====="
 
-echo "Copying repository to temporary path..."
+# Step 1: Copy Repository
+log "Copying repository to temporary path..."
 if cp -R "$REPO_PATH" "$TEMP_BUILD_PATH"; then
-    echo "Repository copied successfully ."
+    log "Repository copied successfully."
 else
-    echo "Failed to copy repository." >&2
+    log "Failed to copy repository." >&2
     exit 1
 fi
 
-cd "$TEMP_BUILD_PATH" || { echo "Failed to navigate to $TEMP_BUILD_PATH"; exit 1; }
+cd "$TEMP_BUILD_PATH" || { log "Failed to navigate to $TEMP_BUILD_PATH"; exit 1; }
 
-# Step 2: Git pull
-echo "Pulling latest changes from GitHub..."
+# Step 2: Pull Latest Changes
+log "Pulling latest changes from GitHub..."
 retry_count=0
-max_retries=3
 
-until git pull origin main || [ "$retry_count" -ge "$max_retries" ]; do
-    retry_count=$((retry_count+1))
-    echo "Git pull failed. Retrying... ($retry_count/$max_retries)"
+until git pull origin main || [ "$retry_count" -ge "$MAX_RETRIES" ]; do
+    retry_count=$((retry_count + 1))
+    log "Git pull failed. Retrying... ($retry_count/$MAX_RETRIES)"
     sleep 5
 done
-if [ "$retry_count" -ge "$max_retries" ]; then
-    echo "Git pull failed after $max_retries attempts." >&2
+
+if [ "$retry_count" -ge "$MAX_RETRIES" ]; then
+    log "Git pull failed after $MAX_RETRIES attempts." >&2
     exit 1
 else
-    echo "Git pull completed."
+    log "Git pull completed."
 fi
 
-# Step 3: Cache and dependencies cleanup
-echo "Clearing .next cache, node_modules, and npm cache..."
-if rm -rf .next node_modules; then
-    echo "Cleared .next cache, node_modules."
-else
-    echo "Dependency installation failed." >&2
-    exit 1
-fi
+# Step 3: Clear Cache and Dependencies
+log "Clearing .next cache and node_modules..."
+rm -rf .next node_modules || { log "Failed to clear cache or node_modules." >&2; exit 1; }
 
-# Step 4: Install both dependencies
-echo "Installing both dependencies..."
+log "Clearing npm cache..."
+npm cache clean --force || { log "Failed to clear npm cache." >&2; exit 1; }
+
+# Step 4: Install Dependencies
+log "Installing dependencies..."
 if npm install --omit=optional --force; then
-    echo "Dependencies installed successfully."
+    log "Dependencies installed successfully."
 else
-    echo "Dependency installation failed." >&2
+    log "Failed to install dependencies." >&2
     exit 1
 fi
 
-# Step 5: Build project
-echo "Building the project..."
+# Step 5: Build Project
+log "Building the project..."
 if npm run build; then
-    echo "Build completed successfully."
+    log "Build completed successfully."
 else
-    echo "Build failed." >&2
+    log "Build failed." >&2
     exit 1
 fi
 
-# Step 6: Clear .htaccess file content while keeping the first 5 lines
-echo "Clearing .htaccess file content while keeping the first 5 lines..."
+# Step 6: Clear .htaccess Content
+log "Clearing .htaccess file while keeping the first 5 lines..."
 if head -n 5 "$HTACCESS" > "${HTACCESS}.tmp" && mv "${HTACCESS}.tmp" "$HTACCESS"; then
-    echo ".htaccess file cleared successfully, keeping the first 5 lines."
+    log ".htaccess file cleared successfully."
 else
-    echo "Failed to clear .htaccess file while keeping the first 5 lines." >&2
+    log "Failed to clear .htaccess file." >&2
     exit 1
 fi
 
-# Step 7: Ensure the public directory exists in REPO_PATH
-echo "Checking public directory..."
+# Step 7: Ensure Public Directory Exists
+log "Checking if public directory exists..."
 if [ ! -d "$REPO_PATH/public" ]; then
     mkdir -p "$REPO_PATH/public"
-    echo "Public directory created in live path."
+    log "Public directory created."
 else
-    echo "Public directory exists in live path."
+    log "Public directory already exists."
 fi
 
-# Step 8: Deploy to live directory
-echo "Deploying files to live directory..."
-# Sync all files from the temporary build path to the live repository path
+# Step 8: Deploy to Live Directory
+log "Syncing files to live directory..."
 if rsync -a --delete "$TEMP_BUILD_PATH/" "$REPO_PATH/"; then
-    echo "Deployment files synced successfully."
+    log "Files synced successfully."
 else
-    echo "File sync failed." >&2
+    log "Failed to sync files." >&2
     exit 1
 fi
 
-# Step 9: Cleanup temporary build directory
-echo "Cleaning up temporary build directory..."
+# Step 9: Cleanup Temporary Build Directory
+log "Cleaning up temporary build directory..."
 if rm -rf "$TEMP_BUILD_PATH"; then
-    echo "Temporary build directory removed."
+    log "Temporary build directory removed."
 else
-    echo "Failed to remove temporary build directory." >&2
+    log "Failed to remove temporary build directory." >&2
+    exit 1
 fi
 
-echo "===== Deployment completed successfully at $(date) ====="
-
-
-# Step 10: reload the application
-echo "reloading application with PM2..."
-cd "$REPO_PATH" || { echo "Failed to navigate to live directory $REPO_PATH"; exit 1; }
+# Step 10: Reload Application
+log "Reloading application with PM2..."
+cd "$REPO_PATH" || { log "Failed to navigate to live directory $REPO_PATH"; exit 1; }
 if pm2 reload "$APP_NAME" --update-env; then
-    echo "Application reloaded successfully."
+    log "Application reloaded successfully."
 else
-    echo "Application reload failed." >&2
+    log "Failed to reload application." >&2
     exit 1
 fi
 
-# Step 11: rclear npm cache
-echo "clearing npm cache"
-if npm cache clean --force; then
-    echo "cleared npm cache."
-else
-    echo "Failed to clear npm cache." >&2
-    exit 1
-fi
+log "===== Deployment completed successfully ====="
