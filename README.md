@@ -17,7 +17,7 @@
   <h3 align="center">Bfptec</h3>
 
   <p align="center">
-    a full-stack blogging platform. 
+     A full-stack blogging platform with Next.js, Payload CMS, and Mongodb.
     <br />
     <br />
     <a href="https://bfptec.jsclimber.ir/">View Demo</a>
