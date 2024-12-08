@@ -44,12 +44,16 @@ fi
 
 # Step 3: Cache and dependencies cleanup
 echo "Clearing .next cache, node_modules, and npm cache..."
-rm -rf .next node_modules
-npm cache clean --force
+if rm -rf .next node_modules; then
+    echo "Cleared .next cache, node_modules."
+else
+    echo "Dependency installation failed." >&2
+    exit 1
+fi
 
-# Step 4: Install dependencies
-echo "Installing dependencies..."
-if npm install --development; then
+# Step 4: Install both dependencies
+echo "Installing both dependencies..."
+if npm install --omit=optional --force; then
     echo "Dependencies installed successfully."
 else
     echo "Dependency installation failed." >&2
@@ -111,5 +115,14 @@ if pm2 reload "$APP_NAME" --update-env; then
     echo "Application reloaded successfully."
 else
     echo "Application reload failed." >&2
+    exit 1
+fi
+
+# Step 11: rclear npm cache
+echo "clearing npm cache"
+if npm cache clean --force; then
+    echo "cleared npm cache."
+else
+    echo "Failed to clear npm cache." >&2
     exit 1
 fi

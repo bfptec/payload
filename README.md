@@ -54,9 +54,23 @@
 
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://bfptec.jsclimber.ir/)
+[![Bfptec Website Screen Shot][product-screenshot]](https://bfptec.jsclimber.ir/)
 
 Bfptec is a full-stack blogging platform focused on water and wastewater purification technologies. It features a modern UI, a comprehensive admin panel, and robust data management capabilities. Powered by Next.js 15, the application leverages React, Shadcn UI, and other cutting-edge technologies to deliver an intuitive user experience.
+
+### Admin Panel
+[![Admin Panel Screen Shot][admin-screenshot]](https://bfptec.jsclimber.ir/admin)
+
+The application is built with **Payload CMS**, which provides a feature-rich admin panel for content management. Some key features include:
+
+- **Rich Text Editor:** Create and format posts with an easy-to-use editor supporting headings, lists, links, and more.
+- **File Uploads:** Seamlessly upload and manage images, documents, and other media assets.
+- **SEO Tools:** Optimize metadata, slugs, and other SEO-related fields directly within the admin interface.
+- **Dynamic Page Builder:** Create and manage pages dynamically without touching the codebase.
+- **Real-time Preview:** Preview content changes in real-time before publishing.
+- **Customizable Dashboard:** Tailor the admin panel to your needs with plugins and configurations.
+
+These features make the admin panel user-friendly and flexible, enabling efficient content management and website updates.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -247,6 +261,7 @@ Here are some resources that helped shape this project. Thanks to all the amazin
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
 [product-screenshot]: public/images/screenshot.png
+[admin-screenshot]: public/images/screenshot-admin-panel.png
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
