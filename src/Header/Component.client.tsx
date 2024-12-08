@@ -49,10 +49,10 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ header }) => {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-20 w-full backdrop-blur-sm transition-all duration-300 max-lg:p-2 lg:px-2 lg:${isWide ? 'h-[100px]' : 'h-[60px]'}`}
+      className={`bg-white/80 fixed inset-x-0 top-0 z-20 w-full backdrop-blur-md transition-all duration-300 max-lg:px-1 max-lg:pt-1 lg:px-2 ${isWide ? 'lg:h-28' : 'lg:h-[60px]'}`}
       {...(theme ? { 'data-theme': theme } : {})}
     >
-      <div className="container relative flex justify-between">
+      <div className="container relative flex items-center justify-between gap-12">
         <Link href="/">
           <Logo isWide={isWide} />
         </Link>
