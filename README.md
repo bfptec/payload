@@ -10,7 +10,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
+  <a href="https://github.com/bfptec/bfptec">
     <img src="public/images/logo.png" alt="Logo" width="120" height="80">
   </a>
 
@@ -183,8 +183,8 @@ Note: This project does not have separate documentation. Refer to this README fo
 
 Roadmap
 
-- Add blogging functionality with an admin panel.
-- Extend the Bfptec blogging website into a virtual water and wastewater lab.
+- [x] Add blogging functionality with an admin panel.
+- [ ] Extend the Bfptec blogging website into a virtual water and wastewater lab.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
