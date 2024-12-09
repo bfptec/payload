@@ -39,7 +39,7 @@ export const CollectionCarousel: React.FC<Props> = (props) => {
   }, [api])
 
   // plugins
-  const autoplayPlugin = React.useRef(Autoplay({ delay: 3000, stopOnInteraction: true }))
+  const autoplayPlugin = React.useRef(Autoplay({ delay: 1895, stopOnInteraction: true }))
 
   return (
     <div className={cn('container')}>
@@ -48,6 +48,7 @@ export const CollectionCarousel: React.FC<Props> = (props) => {
         opts={{
           align: 'start',
           loop: false,
+          direction: 'rtl',
         }}
         className="mx-auto w-4/5 md:w-full"
         setApi={setApi}
@@ -56,7 +57,7 @@ export const CollectionCarousel: React.FC<Props> = (props) => {
         onMouseLeave={autoplayPlugin.current.reset}
       >
         {/* spacing: https://ui.shadcn.com/docs/components/carousel */}
-        <CarouselContent className="-ml-1">
+        <CarouselContent className="-ml-1 rtl">
           {posts?.map((result, index) => {
             if (typeof result === 'object' && result !== null) {
               return (
@@ -78,7 +79,7 @@ export const CollectionCarousel: React.FC<Props> = (props) => {
       </Carousel>
 
       <div className="py-2 text-center text-sm text-muted-foreground">
-        Slide {current} of {count}
+        اسلاید {current} از {count}{' '}
       </div>
     </div>
   )
