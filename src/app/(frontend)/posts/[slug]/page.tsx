@@ -28,7 +28,7 @@ export async function generateStaticParams() {
   })
 
   const params = posts.docs.map(({ slug }) => {
-    return { slug }
+    return { slug: encodeURIComponent(slug ?? '') }
   })
 
   return params
@@ -42,8 +42,9 @@ type Args = {
 
 export default async function Post({ params: paramsPromise }: Args) {
   const { slug = '' } = await paramsPromise
+  const decodedSlug = decodeURIComponent(slug)
   const url = '/posts/' + slug
-  const post = await queryPostBySlug({ slug })
+  const post = await queryPostBySlug({ slug: decodedSlug })
 
   if (!post) return <PayloadRedirects url={url} />
 

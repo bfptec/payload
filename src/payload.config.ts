@@ -16,6 +16,7 @@ import { Header } from './Header/config'
 import { plugins } from './plugins'
 import { defaultLexical } from '@/fields/defaultLexical'
 import { getServerSideURL } from './utilities/getURL'
+import { fa } from '@payloadcms/translations/languages/fa'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -73,5 +74,13 @@ export default buildConfig({
   sharp,
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
+  },
+  i18n: {
+    supportedLanguages: { fa },
+  },
+  localization: {
+    locales: ['fa'],
+    defaultLocale: 'fa',
+    fallback: true,
   },
 })
