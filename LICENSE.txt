@@ -3,7 +3,7 @@ License
 Copyright (c) 2024 bfptec (github.com/bfptec)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software, JSClimber, to use, modify, and distribute it, subject to the
+of this software, bfptec, to use, modify, and distribute it, subject to the
 condition that this notice is included in all copies or substantial portions.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED.

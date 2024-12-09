@@ -9,14 +9,9 @@ export const ThemeSelector: React.FC = () => {
   const { setTheme } = useTheme()
   const [value, setValue] = useState('')
 
-  const onThemeChange = (themeToSet: Theme | 'auto') => {
-    if (themeToSet === 'auto') {
-      setTheme(null)
-      setValue('auto')
-    } else {
-      setTheme(themeToSet)
-      setValue(themeToSet)
-    }
+  const onThemeChange = (themeToSet: Theme) => {
+    setTheme(themeToSet)
+    setValue(themeToSet)
   }
 
   React.useEffect(() => {
@@ -25,19 +20,18 @@ export const ThemeSelector: React.FC = () => {
   }, [])
 
   return (
-    <div className="flex rounded-full border border-border text-gray-400 transition-all duration-100">
-      <UserRoundCog
-        onClick={() => onThemeChange('auto')}
-        className={`size-10 cursor-pointer rounded-full border-border p-2 hover:text-white ${value === 'auto' && 'border text-white'}`}
-      />
-      <Sun
-        onClick={() => onThemeChange('light')}
-        className={`size-10 cursor-pointer rounded-full border-border p-2 hover:text-yellow-300 ${value === 'light' && 'border text-yellow-300'}`}
-      />
-      <Moon
-        onClick={() => onThemeChange('dark')}
-        className={`size-10 cursor-pointer rounded-full border-border p-2 hover:text-blue-400 ${value === 'dark' && 'border text-blue-400'}`}
-      />
+    <div className="flex rounded-full transition-all duration-100 ">
+      {value == 'light' ? (
+        <Sun
+          onClick={() => onThemeChange('dark')}
+          className={`size-8 cursor-pointer rounded-full border-border p-1 border`}
+        />
+      ) : (
+        <Moon
+          onClick={() => onThemeChange('light')}
+          className={`size-8 cursor-pointer rounded-full border-border p-1 border text-blue-500`}
+        />
+      )}
     </div>
   )
 }

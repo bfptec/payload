@@ -12,7 +12,7 @@ export default function HamburgerMenu({ header }: { header: Header }) {
 
   return (
     <>
-      <Hamburger color="#0034a6" easing="ease-in" size={32} toggled={isOpen} toggle={setOpen} />
+      <Hamburger color="#fdfdfd" easing="ease-in" size={32} toggled={isOpen} toggle={setOpen} />
       {isOpen && BurgurContent({ navItems })}
     </>
   )
@@ -21,16 +21,24 @@ export default function HamburgerMenu({ header }: { header: Header }) {
     return (
       <nav
         className={
-          'container absolute inset-x-0 top-full mx-auto flex h-[260px] flex-col gap-4 rounded-2xl bg-black p-8 text-xl font-semibold dark:bg-blue-50'
+          'container absolute inset-x-0 top-[calc(100%+4px)] mx-auto flex h-[260px] flex-col gap-4 rounded-2xl p-8 bg-primary/90 backdrop-blur-sm '
         }
+        onClick={() => setOpen(false)}
       >
-        {navItems.map(({ link }, i) => {
-          return <CMSLink key={i} {...link} appearance="link" />
-        })}
         <Link href="/search">
-          <span className="sr-only">Search</span>
-          <SearchIcon className="w-5 text-primary" />
+          <span className="sr-only">جستجو</span>
+          <SearchIcon className="w-5 text-foreground" />
         </Link>
+        {navItems.map(({ link }, i) => {
+          return (
+            <CMSLink
+              className="font-semibold text-foreground"
+              key={i}
+              {...link}
+              appearance="link"
+            />
+          )
+        })}
       </nav>
     )
   }

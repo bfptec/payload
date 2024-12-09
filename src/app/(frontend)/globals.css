@@ -84,65 +84,87 @@
   } */
 
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 221.2 83.2% 53.3%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 221.2 83.2% 53.3%;
-    --radius: 0.3rem;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
+    --background: 190 77% 88%; /* Light Cyan for background */
+    --foreground: 214 97% 27%; /* Marian Blue for text */
 
-    --success: 196 52% 74%;
-    --warning: 34 89% 85%;
-    --error: 10 100% 86%;
+    --card: 0 0% 100%; /* White for cards */
+    --card-foreground: 214 97% 27%; /* Marian Blue for card text */
+
+    --popover: 0 0% 100%; /* White for popovers */
+    --popover-foreground: 214 97% 27%; /* Marian Blue for popover text */
+
+    --primary: 195 100% 39%; /* Blue Green for primary buttons */
+    --primary-foreground: 0 0% 100%; /* White for text on primary */
+
+    --secondary: 190 74% 59%; /* Vivid Sky Blue for secondary elements */
+    --secondary-foreground: 0 0% 100%; /* White for text on secondary */
+
+    --muted: 189 75% 75%; /* Non-Photo Blue for less prominent elements */
+    --muted-foreground: 214 97% 27%; /* Marian Blue for muted text */
+
+    --accent: 190 100% 42%; /* Pacific Cyan for accents */
+    --accent-foreground: 0 0% 100%; /* White for accent text */
+
+    --destructive: 0 84.2% 60.2%; /* Default red for destructive actions */
+    --destructive-foreground: 0 0% 100%; /* White for text on destructive */
+
+    --border: 189 75% 75%; /* Non-Photo Blue for borders */
+    --input: 214 31.8% 91.4%; /* Light tone for input borders */
+
+    --ring: 195 100% 39%; /* Blue Green for focus rings */
+    --radius: 0.3rem; /* Rounded corners for a softer feel */
+
+    --chart-1: 190 100% 42%; /* Pacific Cyan for charts */
+    --chart-2: 195 100% 39%; /* Blue Green for charts */
+    --chart-3: 190 74% 59%; /* Vivid Sky Blue for charts */
+    --chart-4: 201 100% 36%; /* Honolulu Blue for charts */
+    --chart-5: 189 75% 75%; /* Non-Photo Blue for charts */
+
+    --success: 173 58% 39%; /* Greenish tone for success */
+    --warning: 34 89% 85%; /* Yellowish tone for warnings */
+    --error: 10 100% 86%; /* Red for errors */
   }
-  [data-theme='dark'] {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 217.2 91.2% 59.8%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 224.3 76.3% 48%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
 
-    --success: 196 100% 14%;
-    --warning: 34 51% 25%;
-    --error: 10 39% 43%;
+  [data-theme='dark'] {
+    --background: 214 97% 27%; /* Marian Blue for dark mode background */
+    --foreground: 190 77% 88%; /* Light Cyan for dark mode text */
+
+    --card: 214 97% 27%; /* Marian Blue for cards */
+    --card-foreground: 190 77% 88%; /* Light Cyan for card text */
+
+    --popover: 214 97% 27%; /* Marian Blue for popovers */
+    --popover-foreground: 190 77% 88%; /* Light Cyan for popover text */
+
+    --primary: 190 100% 42%; /* Pacific Cyan for primary buttons */
+    --primary-foreground: 0 0% 100%; /* White for text on primary */
+
+    --secondary: 195 100% 39%; /* Blue Green for secondary elements */
+    --secondary-foreground: 0 0% 100%; /* White for text on secondary */
+
+    --muted: 189 75% 75%; /* Non-Photo Blue for muted elements */
+    --muted-foreground: 190 77% 88%; /* Light Cyan for muted text */
+
+    --accent: 201 100% 36%; /* Honolulu Blue for accents */
+    --accent-foreground: 190 77% 88%; /* Light Cyan for accent text */
+
+    --destructive: 0 62.8% 30.6%; /* Default red for destructive actions */
+    --destructive-foreground: 190 77% 88%; /* Light Cyan for destructive text */
+
+    --border: 201 100% 36%; /* Honolulu Blue for borders */
+    --input: 214 31.8% 91.4%; /* Slightly muted tone for inputs */
+
+    --ring: 190 100% 42%; /* Pacific Cyan for focus rings */
+    --radius: 0.3rem;
+
+    --chart-1: 190 74% 59%; /* Vivid Sky Blue for charts */
+    --chart-2: 201 100% 36%; /* Honolulu Blue for charts */
+    --chart-3: 195 100% 39%; /* Blue Green for charts */
+    --chart-4: 190 77% 88%; /* Light Cyan for charts */
+    --chart-5: 190 100% 42%; /* Pacific Cyan for charts */
+
+    --success: 173 58% 39%; /* Greenish tone for success */
+    --warning: 34 51% 25%; /* Yellowish tone for warnings */
+    --error: 10 39% 43%; /* Red for errors */
   }
 }
 

@@ -2,7 +2,6 @@ import { getCachedGlobal } from '@/utilities/getGlobals'
 import Link from 'next/link'
 import React from 'react'
 import type { Footer } from '@/payload-types'
-import { ThemeSelector } from '@/providers/Theme/ThemeSelector'
 import { CMSLink } from '@/components/Link'
 
 import data from '@/mock/data.json'
@@ -24,13 +23,13 @@ export async function Footer() {
   const navItems = footer?.navItems || []
 
   return (
-    <footer className="rtl border-t border-border bg-black py-4 text-start text-white dark:bg-card">
+    <footer className="bg-primary rtl border-t border-muted py-4 text-start">
       <div className="container mx-auto w-full px-4 xl:px-0">
         <div className="flex flex-col justify-between sm:px-[18px] md:grid md:grid-cols-7">
           <div className="mx-2 md:col-span-2">
             {/* about */}
             <h1 className="text-[18px] font-bold">درباره {data.title} </h1>
-            <p className="mt-[18px] text-[15px] text-white">{data.about}</p>
+            <p className="mt-[18px] text-[15px]">{data.about}</p>
             {/* nemad ha */}
             <ul className="mt-8 flex gap-3">
               <li className="flex h-[101px] w-[99px] items-center justify-center rounded-lg border border-gray-200 bg-white">
@@ -45,7 +44,7 @@ export async function Footer() {
             </ul>
           </div>
 
-          <address className="mx-2 text-white md:col-span-2">
+          <address className="mx-2 md:col-span-2">
             {/* phone numbers */}
             <div className="mt-[23px] flex">
               <div className="flex h-[38px] w-[38px] items-center justify-center rounded-[75%]">
@@ -124,7 +123,7 @@ export async function Footer() {
 
           <nav className="mx-2 mt-6 md:col-span-1 md:mt-0">
             {navItems.map(({ link }, i) => {
-              return <CMSLink key={i} className="mt-4 block text-white" {...link} />
+              return <CMSLink key={i} className="mt-4 block" {...link} />
             })}
           </nav>
 
@@ -156,7 +155,6 @@ export async function Footer() {
           <Link href={`https://eitaa.ir/${data.eitaAccount}}`} target="_blank" rel="noreferrer">
             <Image alt="شبکه اجتماعی ایتا" width={24} height={24} src={eita} loading="lazy" />
           </Link>
-          <ThemeSelector />
         </div>
         <p className="text-center text-[10px] md:text-[12px]">
           استفاده از مطالب این وب سایت فقط برای مقاصد غیر تجاری و با ذکر منبع بلامانع است. کلیه حقوق
