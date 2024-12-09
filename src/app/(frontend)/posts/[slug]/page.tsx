@@ -28,7 +28,7 @@ export async function generateStaticParams() {
   })
 
   const params = posts.docs.map(({ slug }) => {
-    return { slug: encodeURIComponent(slug ?? '') }
+    return { slug: slug ? encodeURIComponent(slug) : slug }
   })
 
   return params

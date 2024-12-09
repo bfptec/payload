@@ -59,6 +59,7 @@
 Bfptec is a full-stack blogging platform focused on water and wastewater purification technologies. It features a modern UI, a comprehensive admin panel, and robust data management capabilities. Powered by Next.js 15, the application leverages React, Shadcn UI, and other cutting-edge technologies to deliver an intuitive user experience.
 
 ### Admin Panel
+
 [![Admin Panel Screen Shot][admin-screenshot]](https://bfptec.jsclimber.ir/admin)
 
 The application is built with **Payload CMS**, which provides a feature-rich admin panel for content management. Some key features include:
@@ -148,46 +149,61 @@ Make sure you have the following installed on your machine:
 
 The deployment process is fully automated using **GitHub webhooks** and a custom **Bash script**. This ensures reliable, consistent, and efficient deployments to the production environment.
 
-### How It Works
+### Github Webhook
 
-1. **Webhook Setup**  
-   A GitHub webhook is configured to trigger on every `git push` to the `main` branch. This webhook sends a notification to the server to initiate the deployment process.
+end point url wil be: *https://you-live-site.com/api/webhooks/github*
 
-2. **Deployment Script Execution**  
-   Once the webhook triggers, the server runs a Bash script that handles the following tasks:
-   - **Repository Copy:**  
-     Copies the repository to a temporary build path to ensure a clean build environment.
-   - **Pull Latest Changes:**  
-     Pulls the latest updates from the `main` branch to ensure the deployment is up to date.
-   - **Dependency Installation:**  
-     Installs required dependencies using `npm install` for the project.
-   - **Build Process:**  
-     Builds the project using the `npm run build` command to create a production-ready version.
-   - **File Synchronization:**  
-     Syncs the build files to the live server directory using `rsync` for efficient file transfers.
-   - **Application Restart:**  
-     Restarts the application using **PM2** to apply the latest changes seamlessly.
+WEBHOOKS*SECRET: \_place at .env file.*
 
-### Advantages
+### Bash Script
 
-- **Reliability:** Each deployment follows a consistent process, minimizing the chance of errors.
-- **Automation:** The use of GitHub webhooks and a Bash script eliminates manual intervention.
-- **Efficiency:** Only updated files are synchronized, reducing downtime and resource usage.
-- **Scalability:** The pipeline can be adapted for staging, testing, or additional environments as needed.
+!Note: this setup is for the CPanel Hosting services. for other deployment tools or services follow their documents.
 
-### Example Bash Script (Simplified)
+- REPO_PATH: Path to the application.
+
+  ```sh
+  REPO_PATH="/home/jsclimbe/repositories/bfptec"
+  ```
+
+- TEMP_BUILD_PATH: a temporary directory. it will be removed after each deployment.
+
+  ```sh
+  TEMP_BUILD_PATH="/home/jsclimbe/repositories/bfptec-temp"
+  ```
+
+- HTACCESS: after a number of deployments cpanel restricts the process, so it's needed to cleer .htaccess file content.
+
+  ```sh
+  HTACCESS="/home/jsclimbe/bfptec.jsclimber.ir/.htaccess"
+  ```
+
+- APP_NAME: pm2 process name, by default it is set domain name.
+
+  ```sh
+  APP_NAME="bfptec.jsclimber.ir"
+  ```
+
+- LOG_FILE: bash logs stores at this log file, you can change the path if you like:
+
+  ```sh
+  LOG_FILE="/home/jsclimbe/deploy_bfptec.log"
+  ```
 
 See `deploy.sh` for more information.
 
-## Contributing
+## Backup
 
-his application is a blogging website featuring an admin panel for managing posts, pages, media, and more. Below are key usage instructions:
+- **Media :** You need to download media folder from public directory regularly, this folder contains your uploaded files.
+- **Database :** You need to backup Mongodb database then restore it with your local database or just keep it safe.
 
-- Admin Panel: Use the admin panel to create and manage blog posts and pages.
-- Dynamic Routing: Blog posts and pages are served with optimized SEO configurations.
-- Media Uploads: Upload and manage images and files through the admin interface.
-
-Note: This project does not have separate documentation. Refer to this README for guidance.
+  1.  Extract downloaded database:
+      ```sh
+      tar -xvzf downloaded_monodb_database.tar.gz
+      ```
+  2.  (optional):if you set a local copy of project then, Restore:
+      ```sh
+      mongorestore --uri="mongodb://127.0.0.1/bfptec" --drop ./extracted_monodb_database
+      ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
