@@ -29,8 +29,8 @@ export default buildConfig({
         Icon: '/components/graphics/Icon/index.tsx#Icon',
         Logo: '/components/graphics/Logo/index.tsx#Logo',
       },
-      // beforeLogin: ['@/components/BeforeLogin'], src/components/Logo/Logo.tsx
-      // beforeDashboard: ['@/components/BeforeDashboard'],
+      beforeLogin: ['@/components/BeforeLogin'],
+      beforeDashboard: ['@/components/BeforeDashboard'],
     },
     meta: {
       description: 'بنیان فراورش پارسه | خدمات تصفیه آب و فاضلاب',
