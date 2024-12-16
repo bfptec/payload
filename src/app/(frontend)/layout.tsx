@@ -45,7 +45,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
           <Header />
           {/* <Breadcrumb /> */}
-          <div className="max-lg:mt-16">{children}</div>
+          <div className="mt-16 lg:mt-28">{children}</div>
           <Footer />
         </Providers>
       </body>
