@@ -107,9 +107,18 @@ else
     exit 1
 fi
 
-# Step 10: Reload Application
-log "Reloading application with PM2..."
+# Step 10: Rebuild Application
 cd "$REPO_PATH" || { log "Failed to navigate to live directory $REPO_PATH"; exit 1; }
+log "Rebuilding application..."
+if npm run build; then
+    log "Application rebuilt successfully."
+else
+    log "Failed to rebuild application." >&2
+    exit 1
+fi
+
+# Step 11: Reload Application
+log "Reloading application with PM2..."
 if pm2 reload "$APP_NAME" --update-env; then
     log "Application reloaded successfully."
 else
