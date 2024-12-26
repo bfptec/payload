@@ -3,7 +3,6 @@ import type { Post } from '@/payload-types'
 export const post1: Partial<Post> = {
   slug: 'digital-horizons',
   _status: 'published',
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   authors: ['{{AUTHOR}}'],
   content: {
@@ -296,7 +295,7 @@ export const post1: Partial<Post> = {
   meta: {
     description:
       'Dive into the marvels of modern innovation, where the only constant is change. A journey where pixels and data converge to craft the future.',
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+
     // @ts-ignore
     image: '{{IMAGE_1}}',
     title: 'Digital Horizons: A Glimpse into Tomorrow',
