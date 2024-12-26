@@ -4,8 +4,10 @@ import type { Theme } from './types'
 import { useTheme } from '..'
 import { themeLocalStorageKey } from './types'
 import { Moon, Sun, UserRoundCog } from 'lucide-react'
+import { cn } from '@/utilities/cn'
 
-export const ThemeSelector: React.FC = () => {
+type TProps = { className?: string }
+export const ThemeSelector: React.FC<TProps> = ({ className }: TProps) => {
   const { setTheme } = useTheme()
   const [value, setValue] = useState('')
 
@@ -20,7 +22,7 @@ export const ThemeSelector: React.FC = () => {
   }, [])
 
   return (
-    <div className="flex rounded-full transition-all duration-100 ">
+    <div className={cn('flex rounded-full transition-all duration-100 ', className)}>
       {value == 'light' ? (
         <Sun
           onClick={() => onThemeChange('dark')}

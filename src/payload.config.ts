@@ -17,6 +17,7 @@ import { plugins } from './plugins'
 import { defaultLexical } from '@/fields/defaultLexical'
 import { getServerSideURL } from './utilities/getURL'
 import { fa } from '@payloadcms/translations/languages/fa'
+import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -24,12 +25,35 @@ const dirname = path.dirname(filename)
 export default buildConfig({
   admin: {
     components: {
-      // The `BeforeLogin` component renders a message that you see while logging into your admin panel.
-      // Feel free to delete this at any time. Simply remove the line below and the import `BeforeLogin` statement on line 15.
-      // beforeLogin: ['@/components/BeforeLogin'],
-      // The `BeforeDashboard` component renders the 'welcome' block that you see after logging into your admin panel.
-      // Feel free to delete this at any time. Simply remove the line below and the import `BeforeDashboard` statement on line 15.
+      graphics: {
+        Icon: '/components/graphics/Icon/index.tsx#Icon',
+        Logo: '/components/graphics/Logo/index.tsx#Logo',
+      },
+      // beforeLogin: ['@/components/BeforeLogin'], src/components/Logo/Logo.tsx
       // beforeDashboard: ['@/components/BeforeDashboard'],
+    },
+    meta: {
+      description: 'بنیان فراورش پارسه | خدمات تصفیه آب و فاضلاب',
+      icons: [
+        {
+          type: 'image/png',
+          rel: 'icon',
+          url: '/favicon.svg',
+        },
+      ],
+      openGraph: {
+        description:
+          'شرکت بنیان فراورش پارسه ارایه دهنده خدمات تصفیه آب و فاضلاب | غشاهای سرامیکی، ممبران سرامیکی، تصفیه آب، تصفیه سیالات، بازیافت غشاهای مستعمل اسمز معکوس، تبدیل غشاهای مستعمل اسمز معکوس به نانوفیلتراسیون و اولترافیلتراسیون، اولترافیلتراسیون، نانو فیلتراسیون، صنایع فولاد، صنایع مس، صنایع معدنی، PLS، هیپ لیچینگ، هیدرومتالورژی',
+        images: [
+          {
+            height: 600,
+            url: '/website-template-OG.webp',
+            width: 800,
+          },
+        ],
+        title: 'بنیان فراورش پارسه',
+      },
+      titleSuffix: 'بنیان فراورش پارسه',
     },
     importMap: {
       baseDir: path.resolve(dirname),
@@ -83,4 +107,17 @@ export default buildConfig({
     defaultLocale: 'fa',
     fallback: true,
   },
+  // email: nodemailerAdapter({
+  //   defaultFromAddress: 'info@bfptec.ir',
+  //   defaultFromName: 'bfptec',
+  //   // Nodemailer transportOptions
+  //   transportOptions: {
+  //     host: process.env.SMTP_HOST,
+  //     port: 587,
+  //     auth: {
+  //       user: process.env.SMTP_USER,
+  //       pass: process.env.SMTP_PASS,
+  //     },
+  //   },
+  // }),
 })

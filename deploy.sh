@@ -1,11 +1,11 @@
 #!/bin/bash
 
 # Configuration
-TEMP_BUILD_PATH="/home/jsclimbe/repositories/bfptec-temp"
-HTACCESS="/home/jsclimbe/bfptec.jsclimber.ir/.htaccess"
-REPO_PATH="/home/jsclimbe/repositories/bfptec"
-LOG_FILE="/home/jsclimbe/deploy_bfptec.log"
-APP_NAME="bfptec.jsclimber.ir"
+TEMP_BUILD_PATH="/home/bfptecir/repositories/bfptec-temp"
+HTACCESS="/home/bfptecir/bfptec.ir/.htaccess"
+REPO_PATH="/home/bfptecir/repositories/bfptec"
+LOG_FILE="/home/bfptecir/deploy_bfptec.log"
+APP_NAME="bfptec.ir"
 MAX_RETRIES=3
 
 # Start logging

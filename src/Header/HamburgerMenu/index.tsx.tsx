@@ -2,44 +2,56 @@
 import Link from 'next/link'
 import type { Header } from '@/payload-types'
 import { CMSLink } from '@/components/Link'
-import { SearchIcon } from 'lucide-react'
-import { Sling as Hamburger } from 'hamburger-react'
+import { MenuIcon, SearchIcon, XIcon } from 'lucide-react'
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '@/components/ui/sheet'
+import { Button } from '@/components/ui/button'
 import { useState } from 'react'
+import { ThemeSelector } from '@/providers/Theme/ThemeSelector'
 
 export default function HamburgerMenu({ header }: { header: Header }) {
   const navItems = header?.navItems || []
-  const [isOpen, setOpen] = useState(false)
+  const [open, setOpen] = useState(false)
 
   return (
-    <>
-      <Hamburger color="#fdfdfd" easing="ease-in" size={32} toggled={isOpen} toggle={setOpen} />
-      {isOpen && BurgurContent({ navItems })}
-    </>
+    <Sheet open={open} onOpenChange={setOpen}>
+      <SheetTrigger asChild>
+        <Button variant="outline" size="icon" className="lg:hidden">
+          <span className="sr-only">باز کردن منو کاربری</span>
+          {open ? <XIcon className="h-6 w-6" /> : <MenuIcon className="h-6 w-6" />}
+        </Button>
+      </SheetTrigger>
+      <SheetContent side="right" onClick={() => setOpen(false)}>
+        <SheetHeader className="sr-only">
+          <SheetTitle>منو موبایل</SheetTitle>
+          <SheetDescription>دسته بندی صفحات بنیان فراورش پارسه</SheetDescription>
+        </SheetHeader>
+        <div className={'flex gap-2 items-center translate-y-[-12px] justify-end'}>
+          <Link href="/search">
+            <span className="sr-only">جستجو</span>
+            <SearchIcon className="w-5 text-foreground" />
+          </Link>
+          <ThemeSelector />
+        </div>
+        <div className="grid gap-6 p-6 ">
+          {navItems.map(({ link }, i) => {
+            return (
+              <CMSLink
+                className="font-semibold text-foreground"
+                key={i}
+                {...link}
+                appearance="link"
+              />
+            )
+          })}
+        </div>
+      </SheetContent>
+    </Sheet>
   )
-
-  function BurgurContent({ navItems }) {
-    return (
-      <nav
-        className={
-          'container absolute inset-x-0 top-[calc(100%+4px)] mx-auto flex h-[260px] flex-col gap-4 rounded-2xl p-8 bg-primary/90 backdrop-blur-sm '
-        }
-        onClick={() => setOpen(false)}
-      >
-        <Link href="/search">
-          <span className="sr-only">جستجو</span>
-          <SearchIcon className="w-5 text-foreground" />
-        </Link>
-        {navItems.map(({ link }, i) => {
-          return (
-            <CMSLink
-              className="font-semibold text-foreground"
-              key={i}
-              {...link}
-              appearance="link"
-            />
-          )
-        })}
-      </nav>
-    )
-  }
 }

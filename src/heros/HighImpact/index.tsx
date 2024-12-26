@@ -1,12 +1,11 @@
 'use client'
 import { useHeaderTheme } from '@/providers/HeaderTheme'
 import React, { useEffect } from 'react'
-
 import type { Page } from '@/payload-types'
-
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
 import RichText from '@/components/RichText'
+import styles from './index.module.scss'
 
 export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText }) => {
   const { setHeaderTheme } = useHeaderTheme()
@@ -21,10 +20,12 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText 
       data-theme="dark"
     >
       <div className="container mb-8 z-10 relative flex items-center justify-center">
-        <div className="max-w-[36.5rem] text-center backdrop-blur-sm backdrop-opacity-80 bg-black/20 rounded">
-          {richText && <RichText className="mb-6" data={richText} enableGutter={false} />}
+        <div className="max-w-[36.5rem] text-center">
+          {richText && (
+            <RichText className={styles.richText} data={richText} enableGutter={false} />
+          )}
           {Array.isArray(links) && links.length > 0 && (
-            <ul className="flex justify-center gap-4">
+            <ul className="flex justify-center gap-4 animate-slidein opacity-0 [--slidein-delay:700ms]">
               {links.map(({ link }, i) => {
                 return (
                   <li key={i}>

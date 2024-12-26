@@ -50,7 +50,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ header }) => {
 
   return (
     <header
-      className={`fixed bg-primary/90 inset-x-0 top-0 z-20 w-full backdrop-blur-sm transition-all duration-300 max-lg:px-1 max-lg:pt-1 lg:px-2 ${isWide ? 'lg:h-28' : 'lg:h-[60px]'}`}
+      className={`fixed bg-primary/90 inset-x-0 top-0 z-20 w-full backdrop-blur-sm transition-all duration-300 max-lg:px-1 max-lg:pt-1 lg:px-2 ${isWide ? 'lg:h-28' : 'lg:h-[60px]'} opacity-0 [--slidein-delay:500ms] animate-slidein`}
       // {...(theme ? { 'data-theme': theme } : {})}
     >
       <div className="relative container flex items-center justify-between gap-12">
@@ -63,7 +63,6 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ header }) => {
           </>
         ) : (
           <>
-            <ThemeSelector />
             <Link href="/">
               <Logo isWide={isWide} />
             </Link>

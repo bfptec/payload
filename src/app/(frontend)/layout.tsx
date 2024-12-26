@@ -42,11 +42,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             }}
           /> */}
           <LivePreviewListener />
-
-          <Header />
-          {/* <Breadcrumb /> */}
-          <div className="mt-16 lg:mt-28">{children}</div>
-          <Footer />
+          <div className="min-h-screen flex flex-col">
+            <Header />
+            {/* <Breadcrumb /> */}
+            <div className="mt-16 lg:mt-28 flex-1">{children}</div>
+            <Footer />
+          </div>
         </Providers>
       </body>
     </html>

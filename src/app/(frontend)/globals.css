@@ -166,14 +166,11 @@
     --warning: 34 51% 25%; /* Yellowish tone for warnings */
     --error: 10 39% 43%; /* Red for errors */
   }
-}
-
-@layer base {
   * {
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-["peyda"];
   }
 }
 
@@ -189,4 +186,75 @@ html[data-theme='light'] {
   .rtl {
     direction: rtl;
   }
+}
+@font-face {
+  font-family: 'peyda';
+  font-display: swap;
+  font-style: normal;
+  font-weight: 900;
+  src: url('../../../public/fonts/Peyda-Black.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'peyda';
+  font-display: swap;
+  font-style: normal;
+  font-weight: 800;
+  src: url('../../../public/fonts/Peyda-ExtraBold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'peyda';
+  font-display: swap;
+  font-style: normal;
+  font-weight: 700;
+  src: url('../../../public/fonts/Peyda-Bold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'peyda';
+  font-display: swap;
+  font-style: normal;
+  font-weight: 600;
+  src: url('../../../public/fonts/Peyda-SemiBold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'peyda';
+  font-display: swap;
+  font-style: normal;
+  font-weight: 500;
+  src: url('../../../public/fonts/Peyda-Medium.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'peyda';
+  font-display: swap;
+  font-style: normal;
+  font-weight: 400;
+  src: url('../../../public/fonts/Peyda-Regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'peyda';
+  font-display: swap;
+  font-style: normal;
+  font-weight: 300;
+  src: url('../../../public/fonts/Peyda-light.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'peyda';
+  font-display: swap;
+  font-style: normal;
+  font-weight: 200;
+  src: url('../../../public/fonts/Peyda-extralight.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'peyda';
+  font-display: swap;
+  font-style: normal;
+  font-weight: 100;
+  src: url('../../../public/fonts/Peyda-Thin.woff2') format('woff2');
 }

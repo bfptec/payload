@@ -1,3 +1,5 @@
+import plugin from 'tailwindcss/plugin'
+
 /** @type {import('tailwindcss').Config} */
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
@@ -10,7 +12,20 @@ export default {
   darkMode: ['class', '[data-theme="dark"]'],
   // darkMode: ['selector', '[data-theme="dark"]'],
   darkMode: ['selector', '[data-theme="dark"]'],
-  plugins: [require('tailwindcss-animate'), require('@tailwindcss/typography')],
+  plugins: [
+    require('tailwindcss-animate'),
+    require('@tailwindcss/typography'),
+    plugin(function ({ matchUtilities, theme }) {
+      matchUtilities(
+        {
+          'text-shadow': (value) => ({
+            textShadow: value,
+          }),
+        },
+        { values: theme('textShadow') },
+      )
+    }),
+  ],
   prefix: '',
   safelist: [
     'lg:col-span-4',
@@ -49,6 +64,8 @@ export default {
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+        slidein: 'slidein 1s ease var(--slidein-delay, 0) forwards',
+        'text-gradient': 'text 3.5s linear infinite',
       },
       borderRadius: {
         lg: 'var(--radius)',
@@ -106,6 +123,21 @@ export default {
           from: { height: 'var(--radix-accordion-content-height)' },
           to: { height: '0' },
         },
+        slidein: {
+          from: {
+            opacity: '0',
+            transform: 'translateY(-10px)',
+          },
+          to: {
+            opacity: '1',
+            transform: 'translateY(0)',
+          },
+        },
+        text: {
+          to: {
+            backgroundPosition: '200% center',
+          },
+        },
       },
       typography: ({ theme }) => ({
         DEFAULT: {
@@ -120,6 +152,14 @@ export default {
           },
         },
       }),
+      boxShadow: {
+        hero: 'inset 0 0 0 100vmax rgba(0,0,0,.5)',
+      },
+      textShadow: {
+        sm: '0 1px 2px var(--tw-shadow-color)',
+        DEFAULT: '0 2px 4px var(--tw-shadow-color)',
+        lg: '-1px 1px 1px black, 0 0 0.2em var(--tw-shadow-color), 0 0 2em var(--tw-shadow-color)',
+      },
     },
   },
 }
