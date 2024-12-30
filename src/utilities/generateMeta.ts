@@ -26,7 +26,9 @@ export const generateMeta = async (args: {
 
   const ogImage = getImageURL(doc?.meta?.image)
 
-  const title = doc?.meta?.title ? doc?.meta?.title + ' | بنیان فراورش پارسه' : 'بنیان فراورش پارسه'
+  const title = doc?.meta?.title
+    ? doc?.meta?.title + ' | سیستم های تصفیه آب، تصفیه سیالات معدنی و تصفیه آب خاکستری'
+    : 'بنیان فراورش پارسه | سیستم های تصفیه آب، تصفیه سیالات معدنی و تصفیه آب خاکستری'
 
   return {
     description: doc?.meta?.description,

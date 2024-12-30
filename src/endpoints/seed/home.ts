@@ -658,7 +658,8 @@ export const home: RequiredDataFromCollectionSlug<'pages'> = {
     },
   ],
   meta: {
-    description: 'An open-source website built with Payload and Next.js.',
+    description:
+      'یک شرکت دانش بنیان که در زمینه سیستم های تصفیه آب، سیالات معدنی و آب خاکستری مبتنی بر غشاهای پلیمری، سرامیکی و روش های اکسیداسیون پیشرفته فعالیت می کند.',
     // @ts-ignore
     image: '{{IMAGE_1}}',
     title: 'بنیان فراورش پارسه',

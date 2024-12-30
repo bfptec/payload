@@ -53,4 +53,6 @@ export const metadata: Metadata = {
     // creatorId: '1467726470533754880',
     images: ['https://bfptec.ir/website-template-OG.webp'],
   },
+  // Google search console verification
+  verification: { google: 'r58d1rlg9oV4V9tIl0T2vsAEiPOpw-S_DoVobWWFUdU' },
 }
