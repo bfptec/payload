@@ -1,10 +1,5 @@
 import type { Metadata } from 'next'
-
-import { cn } from 'src/utilities/cn'
-import { GeistMono } from 'geist/font/mono'
-import { GeistSans } from 'geist/font/sans'
 import React from 'react'
-
 // import { AdminBar } from '@/components/AdminBar'
 import { Footer } from '@/Footer/Component'
 import { Header } from '@/Header/Component'
@@ -12,22 +7,14 @@ import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { Providers } from '@/providers'
 import { InitTheme } from '@/providers/Theme/InitTheme'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
-import { draftMode } from 'next/headers'
-
+// import { draftMode } from 'next/headers'
 import './globals.css'
 import { getServerSideURL } from '@/utilities/getURL'
-// import Breadcrumb from '@/components/Breadcrumb'
+import { yekanbakh } from './fonts'
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const { isEnabled } = await draftMode()
-
   return (
-    <html
-      className={cn(GeistSans.variable, GeistMono.variable)}
-      lang="fa"
-      dir="rtl"
-      suppressHydrationWarning
-    >
+    <html lang="fa" className={`${yekanbakh.variable}`} dir="rtl" suppressHydrationWarning>
       <head>
         <InitTheme />
         <link href="/favicon.ico" rel="icon" sizes="32x32" />
@@ -44,7 +31,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <LivePreviewListener />
           <div className="min-h-screen flex flex-col">
             <Header />
-            {/* <Breadcrumb /> */}
             <div className="mt-16 lg:mt-28 flex-1">{children}</div>
             <Footer />
           </div>
@@ -53,12 +39,18 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     </html>
   )
 }
-
+// TODO: Register in X(twitter)
 export const metadata: Metadata = {
   metadataBase: new URL(getServerSideURL()),
   openGraph: mergeOpenGraph(),
   twitter: {
     card: 'summary_large_image',
-    creator: '@amiraryan1996',
+    title: 'بنیان فراورش پارسه',
+    description:
+      'ا یک شرکت دانش بنیان هستیم که در زمینه طراحی و ساخت سیستم های تصفیه آب، تصفیه سیالات معدنی و تصفیه آب خاکستری مبتنی بر غشاهای پلیمری، سرامیکی و روش های اکسیداسیون پیشرفته (AOP) فعالیت می کنیم.',
+    // siteId: '1467726470533754880',
+    // creator: '@amiraryan1996',
+    // creatorId: '1467726470533754880',
+    images: ['https://bfptec.ir/website-template-OG.webp'],
   },
 }

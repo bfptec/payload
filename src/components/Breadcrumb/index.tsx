@@ -17,7 +17,7 @@ const Breadcrumb = () => {
   const pathNames = paths.split('/').filter((path) => path)
 
   return (
-    <SBreadcrumb className="!container mt-32 z-80">
+    <SBreadcrumb>
       <BreadcrumbList>
         {/* Home Link */}
         <BreadcrumbItem>

@@ -5,7 +5,7 @@ import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import { draftMode } from 'next/headers'
 import React, { cache } from 'react'
-import { homeStatic } from '@/endpoints/seed/home-static'
+// import { homeStatic } from '@/endpoints/seed/home-static'
 
 import type { Page as PageType } from '@/payload-types'
 
@@ -29,10 +29,10 @@ export async function generateStaticParams() {
 
   const params = pages.docs
     ?.filter((doc) => {
-      return doc.slug !== 'home'
+      return doc.slug !== 'خانه'
     })
     .map(({ slug }) => {
-      return { slug }
+      return { slug: slug ? encodeURIComponent(slug) : slug }
     })
 
   return params
@@ -45,19 +45,20 @@ type Args = {
 }
 
 export default async function Page({ params: paramsPromise }: Args) {
-  const { slug = 'home' } = await paramsPromise
+  const { slug = 'خانه' } = await paramsPromise
+  const decodedSlug = decodeURIComponent(slug)
   const url = '/' + slug
 
   let page: PageType | null
 
   page = await queryPageBySlug({
-    slug,
+    slug: decodedSlug,
   })
 
   // Remove this code once your website is seeded
-  if (!page && slug === 'home') {
-    page = homeStatic
-  }
+  // if (!page && slug === 'home') {
+  //   page = homeStatic
+  // }
 
   if (!page) {
     return <PayloadRedirects url={url} />
@@ -78,9 +79,10 @@ export default async function Page({ params: paramsPromise }: Args) {
 }
 
 export async function generateMetadata({ params: paramsPromise }): Promise<Metadata> {
-  const { slug = 'home' } = await paramsPromise
+  const { slug = 'خانه' } = await paramsPromise
+  const decodedSlug = decodeURIComponent(slug)
   const page = await queryPageBySlug({
-    slug,
+    slug: decodedSlug,
   })
 
   return generateMeta({ doc: page })

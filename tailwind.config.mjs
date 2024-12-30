@@ -111,8 +111,8 @@ export default {
         warning: 'hsl(var(--warning))',
       },
       fontFamily: {
-        mono: ['var(--font-geist-mono)'],
-        sans: ['var(--font-geist-sans)'],
+        yekanbakh: ['var(--font-yekanbakh)'],
+        iransans: ['iransans'],
       },
       keyframes: {
         'accordion-down': {
@@ -142,8 +142,8 @@ export default {
       typography: ({ theme }) => ({
         DEFAULT: {
           css: {
-            '--tw-prose-body': 'var(--text)',
-            '--tw-prose-headings': 'var(--text)',
+            '--tw-prose-body': 'hsl(var(--foreground))',
+            '--tw-prose-headings': 'hsl(var(--primary))',
             h1: {
               fontSize: '3.5rem',
               fontWeight: 'normal',

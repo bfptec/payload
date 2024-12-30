@@ -1,10 +1,10 @@
 .richText {
   @apply mb-6 animate-slidein opacity-0 [--slidein-delay:500ms];
   p {
-    @apply bg-black/60 px-2 py-1 backdrop-blur-sm  rounded;
+    @apply bg-black/60 px-2 py-1 backdrop-blur-sm rounded text-white;
   }
   h1 {
-    @apply max-sm:text-5xl animate-text-gradient bg-gradient-to-r from-border via-[#6752ff] to-[#c7d2fe] 
-    bg-[200%_auto] bg-clip-text text-transparent;
+    @apply max-sm:text-5xl animate-text-gradient bg-gradient-to-r from-border via-[#ffffff] to-[#c7d2fe] 
+    bg-[200%_auto] bg-clip-text text-transparent bg-black/60;
   }
 }

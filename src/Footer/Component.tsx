@@ -23,7 +23,7 @@ export async function Footer() {
   const navItems = footer?.navItems || []
 
   return (
-    <footer className="bg-primary rtl border-t border-muted py-4 text-start">
+    <footer className="bg-card border-t border-muted py-4 text-start">
       <div className="container mx-auto w-full px-4 xl:px-0">
         <div className="flex flex-col justify-between sm:px-[18px] md:grid md:grid-cols-7">
           <div className="mx-2 md:col-span-2">

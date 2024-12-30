@@ -7,6 +7,7 @@ import type { Header as HeaderType } from '@/payload-types'
 import { CMSLink } from '@/components/Link'
 import Link from 'next/link'
 import { SearchIcon } from 'lucide-react'
+import { ThemeSelector } from '@/providers/Theme/ThemeSelector'
 
 export const HeaderNav: React.FC<{ header: HeaderType }> = ({ header }) => {
   const navItems = header?.navItems || []
@@ -18,10 +19,13 @@ export const HeaderNav: React.FC<{ header: HeaderType }> = ({ header }) => {
           return <CMSLink className="text-foreground" key={i} {...link} appearance="link" />
         })}
       </div>
-      <Link href="/search">
-        <span className="sr-only">جستجو</span>
-        <SearchIcon className="w-5 text-foreground" />
-      </Link>
+      <div className="flex gap-4 items-center">
+        <Link href="/search">
+          <span className="sr-only">جستجو</span>
+          <SearchIcon className="w-5 text-foreground" />
+        </Link>
+        <ThemeSelector />
+      </div>
     </nav>
   )
 }
