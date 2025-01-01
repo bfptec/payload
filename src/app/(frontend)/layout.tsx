@@ -53,6 +53,11 @@ export const metadata: Metadata = {
     // creatorId: '1467726470533754880',
     images: ['https://bfptec.ir/website-template-OG.webp'],
   },
-  // Google search console verification
+  // Google search console url prefix verification
   verification: { google: 'r58d1rlg9oV4V9tIl0T2vsAEiPOpw-S_DoVobWWFUdU' },
+  authors: [{ name: 'Amir Aryan', url: 'https://jsclimber.ir' }],
+  generator: 'Next.js',
+  referrer: 'origin-when-cross-origin',
+  creator: 'Amir Aryan',
+  publisher: 'Amir Aryan',
 }

@@ -75,10 +75,8 @@ export async function Footer() {
             <div className="mt-[23px] flex">
               <Image
                 alt="ایمیل پشتیبانی"
-                width={24}
-                height={24}
                 src={mail}
-                className="mx-2"
+                className="mx-2 size-6 my-auto"
                 loading="lazy"
               />
               <div>
@@ -104,21 +102,20 @@ export async function Footer() {
             </div>
 
             {/* location */}
-            <div className="mt-[23px] flex">
-              <Image
-                alt="آدرس شرکت بنیان فراورش پارسه"
-                width={24}
-                height={24}
-                src={location}
-                className="mx-2"
-                loading="lazy"
-              />
-              <div className="ml-[18px]">
-                <Link href="mailto:Info@bfptec.ir" className="text-[14px]">
+            <Link
+              href="https://www.google.com/maps?q=27.18927879,56.2882664&z=15"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mb-4 block"
+              // type="map"
+            >
+              <div className="mt-[23px] flex">
+                <Image alt="آدرس شرکت بنیان فراورش پارسه" src={location} className="mx-2 size-6" />
+                <div className="ml-[18px]">
                   بندرعباس، بولوار شهید ناصر، کوچه شهید ناصر، ساختمان شهید ناصر، طبقه 3، واحد 4
-                </Link>
+                </div>
               </div>
-            </div>
+            </Link>
           </address>
 
           <nav className="mx-2 mt-6 md:col-span-1 md:mt-0">
@@ -149,11 +146,17 @@ export async function Footer() {
 
           {/* bale */}
           <Link href={`https://ble.ir/${data.baleAccount}`} target="_blank" rel=" noreferrer">
-            <Image alt="شبکه اجتماعی بله" width={24} height={24} src={bale} loading="lazy" />
+            <Image alt="شبکه اجتماعی بله" width={24} src={bale} loading="lazy" className="h-auto" />
           </Link>
           {/* eita */}
           <Link href={`https://eitaa.ir/${data.eitaAccount}}`} target="_blank" rel="noreferrer">
-            <Image alt="شبکه اجتماعی ایتا" width={24} height={24} src={eita} loading="lazy" />
+            <Image
+              alt="شبکه اجتماعی ایتا"
+              width={24}
+              src={eita}
+              loading="lazy"
+              className="h-auto"
+            />
           </Link>
         </div>
         <p className="text-center text-[10px] md:text-[12px]">
