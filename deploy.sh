@@ -9,8 +9,7 @@ APP_NAME="bfptec.ir"
 MAX_RETRIES=3
 
 # Start logging
-exec > >(tee -a "$LOG_FILE")
-exec 2>&1
+exec >> "$LOG_FILE" 2>&1
 
 log() {
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*"
