@@ -29,5 +29,5 @@ export const yekanbakh = localFont({
     },
   ],
   variable: '--font-yekanbakh',
-  preload: true,
+  preload: false,
 })
