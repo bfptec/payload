@@ -2,7 +2,7 @@
 
 # Configuration
 TEMP_BUILD_PATH="/home/bfptecir/repositories/bfptec-temp"
-HTACCESS="/home/bfptecir/bfptec.ir/.htaccess"
+# HTACCESS="/home/bfptecir/bfptec.ir/.htaccess"
 REPO_PATH="/home/bfptecir/repositories/bfptec"
 LOG_FILE="/home/bfptecir/deploy_bfptec.log"
 APP_NAME="bfptec.ir"
@@ -71,13 +71,13 @@ else
 fi
 
 # Step 6: Clear .htaccess Content
-log "Clearing .htaccess file while keeping the first 5 lines..."
-if head -n 5 "$HTACCESS" > "${HTACCESS}.tmp" && mv "${HTACCESS}.tmp" "$HTACCESS"; then
-    log ".htaccess file cleared successfully."
-else
-    log "Failed to clear .htaccess file." >&2
-    exit 1
-fi
+# log "Clearing .htaccess file while keeping the first 5 lines..."
+# if head -n 5 "$HTACCESS" > "${HTACCESS}.tmp" && mv "${HTACCESS}.tmp" "$HTACCESS"; then
+#     log ".htaccess file cleared successfully."
+# else
+#     log "Failed to clear .htaccess file." >&2
+#     exit 1
+# fi
 
 # Step 7: Ensure Public Directory Exists
 log "Checking if public directory exists..."
