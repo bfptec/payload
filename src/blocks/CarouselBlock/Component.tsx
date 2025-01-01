@@ -1,11 +1,11 @@
 import type { Post, CarouselBlock as CarouselBlockProps } from '@/payload-types'
 
 import configPromise from '@payload-config'
-import { getPayloadHMR } from '@payloadcms/next/utilities'
 import React from 'react'
 import RichText from '@/components/RichText'
 
 import { CollectionCarousel } from '@/components/CollectionCarousel'
+import { getPayload } from 'payload'
 
 export const CarouselBlock: React.FC<
   CarouselBlockProps & {
@@ -19,7 +19,7 @@ export const CarouselBlock: React.FC<
   let posts: Post[] = []
 
   if (populateBy === 'collection') {
-    const payload = await getPayloadHMR({ config: configPromise })
+    const payload = await getPayload({ config: configPromise })
 
     const flattenedCategories = categories?.map((category) => {
       if (typeof category === 'object') return category.id

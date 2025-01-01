@@ -29,7 +29,7 @@ export async function generateStaticParams() {
 
   const params = pages.docs
     ?.filter((doc) => {
-      return doc.slug !== 'خانه'
+      return doc.slug !== 'home'
     })
     .map(({ slug }) => {
       return { slug: slug ? encodeURIComponent(slug) : slug }
@@ -45,7 +45,7 @@ type Args = {
 }
 
 export default async function Page({ params: paramsPromise }: Args) {
-  const { slug = 'خانه' } = await paramsPromise
+  const { slug = 'home' } = await paramsPromise
   const decodedSlug = decodeURIComponent(slug)
   const url = '/' + slug
 
@@ -79,7 +79,7 @@ export default async function Page({ params: paramsPromise }: Args) {
 }
 
 export async function generateMetadata({ params: paramsPromise }): Promise<Metadata> {
-  const { slug = 'خانه' } = await paramsPromise
+  const { slug = 'home' } = await paramsPromise
   const decodedSlug = decodeURIComponent(slug)
   const page = await queryPageBySlug({
     slug: decodedSlug,
