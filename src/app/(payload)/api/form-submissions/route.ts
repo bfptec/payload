@@ -37,7 +37,7 @@ export async function POST(req: Request) {
     type TItem = { field: string; value: String }
     const fullNameField = submissionData.find((item: TItem) => item.field === 'full-name')
     const userEmailField = submissionData.find((item: TItem) => item.field === 'email')
-    const fullName = fullNameField?.value || 'User'
+    const fullName = fullNameField?.value || 'کاربر'
     const userEmail = userEmailField?.value
 
     if (!userEmail) {
@@ -48,30 +48,32 @@ export async function POST(req: Request) {
       })
     }
 
-    // Send email to the user
+    const emailContent = submissionData.map((item: TItem) => `<br/><p>${item.value}</p>`).join('')
+    console.log(emailContent, 'content array')
+
     const userEmailHTML = await generateEmailHTML({
-      content: submissionData,
-      headline: `Thank you for your submission, ${fullName}!`,
+      content: `<p>${`${fullName} سلام!`} به زودی با شما تماس خواهیم گرفت...</p>`,
+      headline: 'درخواست شما را دریافت کردیم.',
     })
     await payload.sendEmail({
       from: 'no-reply@bfptec.ir',
       to: userEmail,
-      subject: `Dear ${fullName}, Thank you for your submission`,
+      subject: `عزیز درخواست شما به دستمان رسید. ${fullName}`,
       html: userEmailHTML,
     })
     console.log('[DEBUG] Email sent to user successfully.')
 
     const adminEmailHTML = await generateEmailHTML({
-      content: submissionData,
-      headline: 'New Form Submission Received',
+      content: emailContent,
+      headline: 'ادمین عزیز درخواست جدید دریافت کردید.',
     })
 
     // Send email to admin accounts
-    const adminEmails = ['info@bfptec.ir', 'amir.aryan.dv@gmail.com', 'mb.golabi@gmail.com']
+    const adminEmails = ['info@bfptec.ir', 'amir.aryan.dv@gmail.com', 'mb.golabi@yahoo.com']
     await payload.sendEmail({
       from: 'no-reply@bfptec.ir',
       to: adminEmails.join(', '),
-      subject: `Received New Form Submission`,
+      subject: `درخواست جدید دریافت شد.`,
       html: adminEmailHTML,
     })
     console.log('[DEBUG] Email sent to admin accounts successfully.')
