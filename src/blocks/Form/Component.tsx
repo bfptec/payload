@@ -114,7 +114,7 @@ export const FormBlock: React.FC<
           console.warn(err)
           setIsLoading(false)
           setError({
-            message: 'Something went wrong.',
+            message: 'خظایی پیش آمده است!',
           })
         }
       }
