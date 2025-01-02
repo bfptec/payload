@@ -7,7 +7,7 @@ export async function POST(req: Request) {
   console.log('[DEBUG] Received request at POST /api/form-submissions')
 
   try {
-    const body = await req.json() // Parse JSON body
+    const body = await req.json()
     console.log('[DEBUG] Parsed request body:', body)
 
     const { form, submissionData } = body
@@ -34,14 +34,47 @@ export async function POST(req: Request) {
       })
     }
 
+    type TItem = { field: string; value: String }
+    const fullNameField = submissionData.find((item: TItem) => item.field === 'full-name')
+    const userEmailField = submissionData.find((item: TItem) => item.field === 'email')
+    const fullName = fullNameField?.value || 'User'
+    const userEmail = userEmailField?.value
+
+    if (!userEmail) {
+      console.error('[ERROR] User email is missing in submission data.')
+      return new Response(JSON.stringify({ error: 'User email is required.' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      })
+    }
+
+    // Send email to the user
+    const userEmailHTML = await generateEmailHTML({
+      content: submissionData,
+      headline: `Thank you for your submission, ${fullName}!`,
+    })
     await payload.sendEmail({
       from: 'no-reply@bfptec.ir',
-      to: 'dee.bayer76@ethereal.email ',
-      subject: `New Submission for Form: ${form}`,
-      html: emailHTML,
+      to: userEmail,
+      subject: `Dear ${fullName}, Thank you for your submission`,
+      html: userEmailHTML,
+    })
+    console.log('[DEBUG] Email sent to user successfully.')
+
+    const adminEmailHTML = await generateEmailHTML({
+      content: submissionData,
+      headline: 'New Form Submission Received',
     })
 
-    console.log('[DEBUG] Email sent successfully.')
+    // Send email to admin accounts
+    const adminEmails = ['info@bfptec.ir', 'amir.aryan.dv@gmail.com', 'mb.golabi@gmail.com']
+    await payload.sendEmail({
+      from: 'no-reply@bfptec.ir',
+      to: adminEmails.join(', '),
+      subject: `Received New Form Submission`,
+      html: adminEmailHTML,
+    })
+    console.log('[DEBUG] Email sent to admin accounts successfully.')
 
     return new Response(JSON.stringify({ message: 'Submission received and email sent.' }), {
       status: 200,
